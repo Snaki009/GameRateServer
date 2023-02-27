@@ -13,8 +13,11 @@ const swaggerDef = {
   },
   servers: [
     {
-      url: `http://localhost:${config.port}/v1`,
+      url: `https://api.gamerate.pl:${config.port}/v1`,
     },
+    {
+      url: `http://localhost:${config.port}/v1`,
+    }
   ],
 };
 
