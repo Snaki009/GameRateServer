@@ -3,6 +3,7 @@ const authRoute = require('./auth.route');
 const userRoute = require('./user.route');
 const docsRoute = require('./docs.route');
 const commentsRoute = require('./comments.route');
+const gamesRoute = require('./games.route');
 const config = require('../../config/config');
 
 const router = express.Router();
@@ -19,6 +20,10 @@ const defaultRoutes = [
   {
     path: '/comments',
     route: commentsRoute,
+  },
+  {
+    path: '/game',
+    route: gamesRoute,
   }
 ];
 
