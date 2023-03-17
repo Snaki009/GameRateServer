@@ -26,6 +26,20 @@ const getGames = async (filter, options) => {
 };
 
 /**
+ * Query for users
+ * @param {Object} filter - Mongo filter
+ * @returns {Promise<QueryResult>}
+ * @param {string} [options.sortBy] - Sort option in the format: sortField:(desc|asc)
+ * @param {number} [options.limit] - Maximum number of results per page (default = 10)
+ * @param {number} [options.page] - Current page (default = 1)
+ * @returns {Promise<QueryResult>}
+ */
+const getCollection = async (filter, options) => {
+    const rating = await Rating.paginate(filter, options);
+    return rating;
+};
+
+/**
  * Create a Game
  * @param {Object} gameBody
  * @returns {Promise<Comment>}
@@ -40,12 +54,16 @@ const getRating = async (gameId, userId) => {
 }
 
 const createRating = async (gameId, ratingBody, user) => {
-    return Rating.create({...ratingBody, gameId, userId: user.id})
+    return Rating.findOneAndUpdate({ gameId, userId: user.id }, { ...ratingBody, gameId, userId: user.id }, {
+        new: true,
+        upsert: true,
+    });
 }
 
 module.exports = {
     getGame,
     getGames,
+    getCollection,
     createGame,
     getRating,
     createRating,

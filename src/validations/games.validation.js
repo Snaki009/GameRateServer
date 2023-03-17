@@ -1,4 +1,5 @@
 const Joi = require('joi');
+const { objectId } = require('./custom.validation');
 
 const getGame = {
     params: Joi.object().keys({
@@ -7,6 +8,12 @@ const getGame = {
 }
 
 const getGames = {}
+
+const getCollection = {
+    params: Joi.object().keys({
+        userId: Joi.string().custom(objectId),
+    }),
+};
 
 const postGame = {
     body: Joi.object()
@@ -42,6 +49,8 @@ const rateGame = {
         .keys({
             rating: Joi.number(),
             description: Joi.string(),
+            ownStatus: Joi.number(),
+            playedStatus: Joi.number(),
         })
 };
 
@@ -50,6 +59,7 @@ const rateGame = {
 module.exports = {
     getGame,
     getGames,
+    getCollection,
     postGame,
     getRating,
     getOwnRating,

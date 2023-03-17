@@ -9,8 +9,7 @@ const router = express.Router();
 router
     .route('/')
     .post(auth('addGame'), validate(gamesValidation.postGame), gamesController.postGame)
-    router.get('/', validate(gamesValidation.getGames), gamesController.getGames)
-
+router.get('/', validate(gamesValidation.getGames), gamesController.getGames)
 
 router.get('/:gameId', validate(gamesValidation.getGame), gamesController.getGame)
 router.get('/:gameId', validate(gamesValidation.getGame), gamesController.getGame)
@@ -21,6 +20,7 @@ router
     .post(auth('rateGame'), validate(gamesValidation.rateGame), gamesController.rateGame)
 
 router.get('/:gameId/rate/:userId', validate(gamesValidation.getRating), gamesController.getRating)
+    
 
 module.exports = router;
 
@@ -181,19 +181,24 @@ module.exports = router;
  *         application/json:
  *           schema:
  *             type: object
- *             required:
- *               - rating
- *               - description
  *             properties:
  *               rating:
  *                 type: number
  *                 description: user selected score
  *               description:
- *                 type: description
+ *                 type: string
  *                 description: description
+ *               ownStatus:
+ *                 type: number
+ *                 description: ownStatus
+ *               playedStatus:
+ *                 type: number
+ *                 description: playedStatus
  *             example:
  *               rating: 5
  *               description: Description
+ *               ownStatus: 1
+ *               playedStatus: 2
  *     responses:
  *       "201":
  *         description: Created

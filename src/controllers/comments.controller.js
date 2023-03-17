@@ -5,7 +5,7 @@ const catchAsync = require('../utils/catchAsync');
 const { commentsService } = require('../services');
 
 const getComments = catchAsync(async (req, res) => {
-    const filter = pick(req.query, ['parrentId']);
+    const filter = pick(req.params, ['parentId']);
     const options = pick(req.query, ['sortBy', 'limit', 'page']);
     const result = await commentsService.queryComments(filter, options);
     res.send(result);

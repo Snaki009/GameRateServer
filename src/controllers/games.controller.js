@@ -21,6 +21,13 @@ const postGame = catchAsync(async (req, res) => {
     res.status(httpStatus.CREATED).send(game);
 });
 
+const getCollection = catchAsync(async (req, res) => {
+    const filter = pick(req.query, ['userId']);
+    const options = pick(req.query, ['sortBy', 'limit', 'page']);
+    const result = await gamesService.getCollection(filter, options);
+    res.send(result);
+});
+
 const getRating = catchAsync(async(req, res) => {
     const rating = await gamesService.getRating(req.params.gameId, req.params.userId)
     res.send(rating)
@@ -40,6 +47,7 @@ const rateGame = catchAsync(async (req, res) => {
 module.exports = {
     getGame,
     getGames,
+    getCollection,
     postGame,
     getRating,
     getOwnRating,
