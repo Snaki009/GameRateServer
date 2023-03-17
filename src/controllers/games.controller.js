@@ -22,7 +22,8 @@ const postGame = catchAsync(async (req, res) => {
 });
 
 const getCollection = catchAsync(async (req, res) => {
-    const filter = pick(req.query, ['userId']);
+    const user = {userId: req.user.id}
+    const filter = pick(user, ['userId']);
     const options = pick(req.query, ['sortBy', 'limit', 'page']);
     const result = await gamesService.getCollection(filter, options);
     res.send(result);

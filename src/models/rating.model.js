@@ -1,12 +1,13 @@
 const mongoose = require('mongoose');
 const { toJSON, paginate } = require('./plugins');
+const Game = require('./game.model');
 
 const ratingSchema = mongoose.Schema(
     {
         gameId: {
-            type: String,
+            type: mongoose.Schema.Types.ObjectId,
+            ref: Game,
             required: true,
-            trim: true,
         },
         userId: {
             type: String,

@@ -35,7 +35,7 @@ const getGames = async (filter, options) => {
  * @returns {Promise<QueryResult>}
  */
 const getCollection = async (filter, options) => {
-    const rating = await Rating.paginate(filter, options);
+    const rating = await Rating.find({userId: filter.userId}).populate('gameId');
     return rating;
 };
 
