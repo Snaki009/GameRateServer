@@ -6,21 +6,21 @@ const https = require('https');
 const fs = require('fs');
 const port = 3000;
 
-// const privateKey = fs.readFileSync('/etc/letsencrypt/live/api.gamerate.pl/privkey.pem', 'utf8');
-// const certificate = fs.readFileSync('/etc/letsencrypt/live/api.gamerate.pl/cert.pem', 'utf8');
-// const ca = fs.readFileSync('/etc/letsencrypt/live/api.gamerate.pl/chain.pem', 'utf8');
+const privateKey = fs.readFileSync('/etc/letsencrypt/live/api.gamerate.pl/privkey.pem', 'utf8');
+const certificate = fs.readFileSync('/etc/letsencrypt/live/api.gamerate.pl/cert.pem', 'utf8');
+const ca = fs.readFileSync('/etc/letsencrypt/live/api.gamerate.pl/chain.pem', 'utf8');
 
-// const credentials = {
-//   key: privateKey,
-//   cert: certificate,
-//   ca: ca
-// };
+const credentials = {
+  key: privateKey,
+  cert: certificate,
+  ca: ca
+};
 
 let server;
 mongoose.connect(config.mongoose.url, config.mongoose.options).then(() => {
   logger.info('Connected to MongoDB');
-    // server = https.createServer(credentials, app).listen(config.port, () => {
-    server = app.listen(config.port, () => {
+    server = https.createServer(credentials, app).listen(config.port, () => {
+    // server = app.listen(config.port, () => {
     logger.info(`Listening to port ${config.port}`);
   });
 });
